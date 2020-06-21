@@ -1,5 +1,5 @@
-0 Blast
-1 Blight
-2 Brownspot
-3 Sheat Blight
-4 Tungro
+Blast
+Blight
+Brownspot
+Sheat Blight
+Tungro

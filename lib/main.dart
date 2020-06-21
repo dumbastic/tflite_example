@@ -3,14 +3,17 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:tflite/tflite.dart';
 void main() => runApp(MyApp());
+
 class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark(),
+      darkTheme: ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Bangkit Final Project JKT5-A'),
+          title: Text('Bangkit Final Project'),
           backgroundColor: Colors.red
         ),
         body: Center(
@@ -47,9 +50,11 @@ class MyImagePickerState extends State {
   
   Future classifyImage() async {
     await Tflite.loadModel(model: "assets/model_unquant.tflite",labels: "assets/labels.txt");
-    var output = await Tflite.runModelOnImage(path: path);      
+    var output = await Tflite.runModelOnImage(path: path);
+    var outputString = output.toString().replaceAll("[{", "").replaceAll("}]", "")
+                       .replaceAll("label", "LABEL").replaceAll("confidence", "CONFIDENCE");
     setState(() {
-      result = output.toString();
+      result = outputString.split(",")[2] + "\n" + outputString.split(",")[0];
     });
   }
   
@@ -60,8 +65,17 @@ class MyImagePickerState extends State {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[ 
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
+              child: Text(
+                'Rice Disease Classification\nusing CNN on TensorFlow Lite', 
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ),
+
             imageURI == null
-              ? Text('No image selected.')
+              ? Image.asset('assets/placeholder.png', width: 300, height: 200, fit: BoxFit.cover,)
               : Image.file(imageURI, width: 300, height: 200, fit: BoxFit.cover),
 
             Row(
@@ -102,8 +116,14 @@ class MyImagePickerState extends State {
             ),
 
             result == null
-              ? Text('Result')
-              : Text(result),
+              ? Text('\n', textAlign: TextAlign.center,)
+              : Text(result, textAlign: TextAlign.center,),
+
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+              child: Text('Developed by JKT5-A Team', textAlign: TextAlign.center,)
+            ),
+            
           ]
         )
       )
