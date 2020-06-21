@@ -1,4 +1,4 @@
-package com.example.tflite_example
+package com.bangkit.jkt5a
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
