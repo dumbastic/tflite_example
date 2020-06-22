@@ -15,7 +15,7 @@ https://www.kaggle.com/rajeshbhattacharjee/rice-diseases-using-cnn-and-svm
 Notebook:    
 https://colab.research.google.com/drive/1_QBCQsqNIjZUyUEoiBrHGntZBY87bUlu?usp=sharing      
 
-Step to implement:  
+Steps to implement:  
 1. Download dataset from Kaggle
 2. Go to https://teachablemachine.withgoogle.com/
 3. Create image project
